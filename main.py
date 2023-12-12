@@ -55,7 +55,7 @@ class HumanPlayer(Player):
         super().__init__(name, player_object)
 
     def choose_object(self):
-        self.current_object = inputMenu(self.player_object.allowed_objects, "choice: ")
+        self.current_object = inputMenu(self.player_object.allowed_objects, "choice: \n")
 
 
 class ComputerPlayer(Player):
@@ -142,12 +142,12 @@ class Game:
 
 class CLInterface:
     def __init__(self):
-        self.mode = inputMenu(["rps", "rpsls"], "rps or rpsls?")
+        self.mode = inputMenu(["rps", "rpsls"], "rps or rpsls?\n")
         self.game = Game("Game", self.mode)
 
     def set_up(self):
         for i in range(2):
-            typ = inputMenu(["computer", "human"], "Computer/human? ")
+            typ = inputMenu(["computer", "human"], "Computer/human?\n")
             if typ == "human":
                 name = input("Name: ")
                 self.game.add_human_player(name)
@@ -176,11 +176,12 @@ class CLInterface:
         self.game.report_winner()
 
     def run_sequence(self):
-        self.set_up()
-        while not (input("Do you want to play again?").lower()[0] == "n"):
-            self.run_game()
-            self.game.reset()
-        print("You have quit the game")
+        while True:
+            self.set_up()
+            while not (input("Do you want to play again?").lower()[0] == "n"):
+                self.run_game()
+                self.game.reset()
+            print("You have quit the game")
 
 
 if __name__ == "__main__":
