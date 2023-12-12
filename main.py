@@ -37,7 +37,7 @@ class Player:
     def __init__(self, name, player_object: PlayerObject):
         self.name = name.capitalize()
         self.score = 0
-        self.current_object = None
+        self.current_object = name
         self.player_object = player_object
 
     def reset_object(self):
@@ -84,7 +84,7 @@ class Game:
         self.players.append(x)
 
     def set_max_rounds(self, val):
-        if val.isinstance(int):
+        if isinstance(val, int):
             self.max_rounds = val
         else:
             print("must be an integer")
