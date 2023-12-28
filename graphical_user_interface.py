@@ -14,15 +14,42 @@ class Game(tk.Tk):
 class SetUpFrame(tk.Frame):
     def __init__(self):
         super().__init__()
+        self.player_1 = tk.StringVar()
+        self.player_2 = tk.StringVar()
+        self.max_rounds = tk.IntVar()
+        self.game_mode = tk.StringVar()
+        self.player_1.set("human")
+        self.player_2.set("computer")
+        self.max_rounds.set(3)
+        self.game_mode.set("rps")
         self.max_rounds_title = tk.Label(self, text="Maximum rounds:")
-        self.max_rounds = tk.Scale(self, from_=0, to=10, orient="horizontal")
+        self.player_1_title = tk.Label(self, text="Player 1:")
+        self.player_2_title = tk.Label(self, text="Player 2:")
+        self.mode_title = tk.Label(self, text="Mode")
+        self.player_type1 = [tk.Radiobutton(self, text=typ,
+                                            value=typ)
+                             for typ in ["computer", "human"]]
+        self.player_type2 = [tk.Radiobutton(self, text=typ,
+                                            variable=self.player_2,
+                                            value=typ)
+                             for typ in ["computer", "human"]]
+        self.mode = [tk.Radiobutton(self, text=typ,
+                                            variable=self.game_mode,
+                                            value=typ)
+                             for typ in ["rps", "rpsls"]]
+        self.max_rounds = tk.Scale(self, from_=1, to=10, orient="horizontal", variable = self.max_rounds)
         self.place_widgets()
-        self.config(bg='yellow')
 
     def place_widgets(self):
-        # self.max_rounds_title.grid(row=0, column=0)
-        # self.max_rounds.grid(row=0, column=1)
-        self.max_rounds_title.pack()
+        self.max_rounds_title.grid(row=0, column=0)
+        self.max_rounds.grid(row=0, column=1)
+        self.player_1_title.grid(row=1, column=0)
+        self.player_2_title.grid(row=2, column=0)
+        self.mode_title.grid(row=3, column=0)
+        for i in range(len(self.player_type1)):
+            self.player_type1[i].grid(row=1, column=i+1)
+            self.player_type2[i].grid(row=2, column=i+1)
+            self.mode[i].grid(row=3, column=i+1)
 
 
 if __name__ == "__main__":
