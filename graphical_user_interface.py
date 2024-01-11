@@ -71,17 +71,33 @@ class SetUpFrame(tk.Frame):
 class GameFrame(tk.Frame):
     def __init__(self):
         super().__init__()
+        self.select_choice_txt = tk.StringVar()
+        self.select_choice_txt.set("Option")
         self.player_1_title = tk.Label(self, text="Player 1")
         self.player_2_title = tk.Label(self, text="Player 2")
+        self.type_1 = "human"
+        self.type_2 = "computer"
+        self.choices = ["rock", "paper", "scissors"]
         self.score = tk.Label(self, text="1:0")
         self.submit = tk.Button(self, text="submit", bg="powder blue")
+        if self.type_1 == "human":
+            self.choice1 = tk.OptionMenu(self, self.select_choice_txt, *self.choices)
+        else:
+            self.choice2 = tk.Label(self, text="Computer choice")
+        if self.type_2 == "human":
+            self.choice2 = tk.OptionMenu(self, self.select_choice_txt, *self.choices)
+        else:
+            self.choice2 = tk.Label(self, text="Computer choice")
         self.place_widgets()
+
 
     def place_widgets(self):
         self.player_1_title.grid(row=0, column=0)
         self.player_2_title.grid(row=0, column=2)
         self.score.grid(row=0, column=1)
-        self.submit.grid(row=1, column=1)
+        self.choice1.grid(row=1, column=0)
+        self.choice2.grid(row=1, column=2)
+        self.submit.grid(row=2, column=1)
 
 
 class ResultsFrame(tk.Frame):
