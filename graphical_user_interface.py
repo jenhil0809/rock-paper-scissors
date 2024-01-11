@@ -71,9 +71,17 @@ class SetUpFrame(tk.Frame):
 class GameFrame(tk.Frame):
     def __init__(self):
         super().__init__()
+        self.player_1_title = tk.Label(self, text="Player 1")
+        self.player_2_title = tk.Label(self, text="Player 2")
+        self.score = tk.Label(self, text="1:0")
+        self.submit = tk.Button(self, text="submit", bg="powder blue")
+        self.place_widgets()
 
     def place_widgets(self):
-        pass
+        self.player_1_title.grid(row=0, column=0)
+        self.player_2_title.grid(row=0, column=2)
+        self.score.grid(row=0, column=1)
+        self.submit.grid(row=1, column=1)
 
 
 class ResultsFrame(tk.Frame):
