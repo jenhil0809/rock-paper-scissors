@@ -90,7 +90,6 @@ class GameFrame(tk.Frame):
             self.choice2 = tk.Label(self, text="Computer choice")
         self.place_widgets()
 
-
     def place_widgets(self):
         self.player_1_title.grid(row=0, column=0)
         self.player_2_title.grid(row=0, column=2)
