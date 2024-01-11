@@ -9,6 +9,10 @@ class Game(tk.Tk):
         self.title.pack()
         self.frame = SetUpFrame()
         self.frame.pack()
+        self.frame = GameFrame()
+        self.frame.pack()
+        self.frame = ResultsFrame()
+        self.frame.pack()
 
 
 class SetUpFrame(tk.Frame):
@@ -38,12 +42,12 @@ class SetUpFrame(tk.Frame):
                                             value=typ)
                              for typ in ["computer", "human"]]
         self.mode = [tk.Radiobutton(self, text=typ,
-                                            variable=self.game_mode,
-                                            value=typ)
-                             for typ in ["rps", "rpsls"]]
+                                    variable=self.game_mode,
+                                    value=typ)
+                     for typ in ["rps", "rpsls"]]
         self.get_name_1 = tk.Entry(self, textvariable=self.name_1)
         self.get_name_2 = tk.Entry(self, textvariable=self.name_2)
-        self.max_rounds = tk.Scale(self, from_=1, to=10, orient="horizontal", variable = self.max_rounds,
+        self.max_rounds = tk.Scale(self, from_=1, to=10, orient="horizontal", variable=self.max_rounds,
                                    length=200)
         self.play_button = tk.Button(self, text="Play!", bg="powder blue")
         self.place_widgets()
@@ -55,13 +59,29 @@ class SetUpFrame(tk.Frame):
         self.player_2_title.grid(row=2, column=0)
         self.mode_title.grid(row=3, column=0)
         for i in range(len(self.player_type1)):
-            self.player_type1[i].grid(row=1, column=i+1)
-            self.player_type2[i].grid(row=2, column=i+1)
+            self.player_type1[i].grid(row=1, column=i + 1)
+            self.player_type2[i].grid(row=2, column=i + 1)
         self.get_name_1.grid(row=1, column=3, padx=5)
         self.get_name_2.grid(row=2, column=3, padx=5)
         self.play_button.grid(row=3, column=3)
         for i in range(2):
-            self.mode[i].grid(row=3, column=i+1)
+            self.mode[i].grid(row=3, column=i + 1)
+
+
+class GameFrame(tk.Frame):
+    def __init__(self):
+        super().__init__()
+
+    def place_widgets(self):
+        pass
+
+
+class ResultsFrame(tk.Frame):
+    def __init__(self):
+        super().__init__()
+
+    def place_widgets(self):
+        pass
 
 
 if __name__ == "__main__":
