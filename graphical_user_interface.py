@@ -192,4 +192,6 @@ class ResultsFrame(tk.Frame):
 
 if __name__ == "__main__":
     app = Game()
+    app.geometry("450x150")
+    app.resizable(False, False)
     app.mainloop()
