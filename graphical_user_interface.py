@@ -88,19 +88,17 @@ class GameFrame(tk.Frame):
         self.round_num = tk.IntVar()
         self.select_choice_txt.set("Option")
         self.round_num.set(1)
-        self.player_1_title = tk.Label(self, text="Player 1")
-        self.player_2_title = tk.Label(self, text="Player 2")
-        self.type_1 = "human"
-        self.type_2 = "computer"
+        self.player_1_title = tk.Label(self, text=self.master.name_1.get())
+        self.player_2_title = tk.Label(self, text=self.master.name_2.get())
         self.choices = ["rock", "paper", "scissors"]
         self.score = tk.Label(self, text="1:0")
         self.round_message = tk.Label(self, text=f"round {self.round_num.get()} of {self.master.max_rounds.get()}")
         self.submit = tk.Button(self, text="submit", bg="powder blue", command=self.next_round)
-        if self.type_1 == "human":
+        if self.master.player_1.get() == "human":
             self.choice1 = tk.OptionMenu(self, self.select_choice_txt, *self.choices)
         else:
-            self.choice2 = tk.Label(self, text="Computer choice")
-        if self.type_2 == "human":
+            self.choice1 = tk.Label(self, text="Computer choice")
+        if self.master.player_2.get() == "human":
             self.choice2 = tk.OptionMenu(self, self.select_choice_txt, *self.choices)
         else:
             self.choice2 = tk.Label(self, text="Computer choice")
