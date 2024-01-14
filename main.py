@@ -133,9 +133,9 @@ class Game:
 
     def report_winner(self):
         if self.players[0].score == self.players[1].score:
-            print("The game is a draw")
+            return "neither"
         elif self.players[0].score > self.players[1].score:
-            print(f"{self.players[0].name} won the game")
+            return self.players[0].name
         else:
-            print(f"{self.players[1].name} won the game")
+            return self.players[1].name
 

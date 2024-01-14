@@ -1,4 +1,6 @@
 import main
+
+
 class CLInterface:
     def __init__(self):
         self.mode = main.inputMenu(["rps", "rpsls"], "rps or rpsls?\n")
@@ -32,7 +34,7 @@ class CLInterface:
             self.game.report_round()
             self.game.report_score()
             print("------")
-        self.game.report_winner()
+        print(f"{self.game.report_winner()} won")
 
     def run_sequence(self):
         while True:
