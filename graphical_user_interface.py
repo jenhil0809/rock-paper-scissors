@@ -170,6 +170,8 @@ class ResultsFrame(tk.Frame):
     def __init__(self, master):
         super().__init__()
         self.master = master
+        self.last_round = tk.Label(self, text=f"final round: {self.master.game.players[0].current_object} vs."
+                                                  f" {self.master.game.players[1].current_object}")
         self.player_names = tk.Label(self, text=f"{self.master.name_1.get()} vs. {self.master.name_2.get()}")
         self.score = tk.Label(self,
                               text=f"{self.master.game.players[0].score}:{self.master.game.players[1].score}  "
@@ -185,6 +187,7 @@ class ResultsFrame(tk.Frame):
         self.play_again.grid(row=2, column=0)
         self.yes_button.grid(row=2, column=1)
         self.no_button.grid(row=2, column=2)
+        self.last_round.grid(row=3, column=0)
 
 
 if __name__ == "__main__":
