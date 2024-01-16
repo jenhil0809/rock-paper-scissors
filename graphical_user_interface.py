@@ -18,14 +18,13 @@ class Game(tk.Tk):
         self.game_mode.set("rps")
         self.name_1.set("Player1")
         self.name_2.set("Player2")
-        self.title = tk.Label(text="Rock Paper Scissors game")
+        self.title = tk.Label(text="Rock Paper Scissors game", font=("Arial", 12))
+        self.title.pack()
         self.get_settings()
 
     def get_settings(self):
-        try:
+        if isinstance(self.frame, ResultsFrame):
             self.frame.pack_forget()
-        except:
-            pass
         self.frame = SetUpFrame(self)
         self.frame.pack()
 
@@ -55,7 +54,7 @@ class Game(tk.Tk):
 class SetUpFrame(tk.Frame):
     def __init__(self, master: Game):
         super().__init__()
-        self.master = master
+        self.master: Game = master
         self.max_rounds_title = tk.Label(self, text="Maximum rounds:")
         self.player_1_title = tk.Label(self, text="Player 1:")
         self.player_2_title = tk.Label(self, text="Player 2:")
@@ -105,9 +104,9 @@ class SetUpFrame(tk.Frame):
 
 
 class GameFrame(tk.Frame):
-    def __init__(self, master):
+    def __init__(self, master: Game):
         super().__init__()
-        self.master = master
+        self.master: Game = master
         self.select_choice_txt = tk.StringVar()
         self.round_num = tk.IntVar()
         self.obj1 = tk.StringVar(value="rock")
@@ -167,11 +166,11 @@ class GameFrame(tk.Frame):
 
 
 class ResultsFrame(tk.Frame):
-    def __init__(self, master):
+    def __init__(self, master: Game):
         super().__init__()
-        self.master = master
+        self.master: Game = master
         self.last_round = tk.Label(self, text=f"final round: {self.master.game.players[0].current_object} vs."
-                                                  f" {self.master.game.players[1].current_object}")
+                                              f" {self.master.game.players[1].current_object}")
         self.player_names = tk.Label(self, text=f"{self.master.name_1.get()} vs. {self.master.name_2.get()}")
         self.score = tk.Label(self,
                               text=f"{self.master.game.players[0].score}:{self.master.game.players[1].score}  "
