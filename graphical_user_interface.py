@@ -137,6 +137,7 @@ class GameFrame(tk.Frame):
             self.find_winner()
             self.round_num.set(self.round_num.get() + 1)
             self.round_message = tk.Label(self, text=f"round {self.round_num.get()} of {self.master.max_rounds.get()}")
+            self.last_round.destroy()
             self.last_round = tk.Label(self, text=f"last round: {self.master.game.players[0].current_object} vs."
                                                   f" {self.master.game.players[1].current_object}")
             self.score = tk.Label(self, text=f"{self.master.game.players[0].score}:{self.master.game.players[1].score}")
