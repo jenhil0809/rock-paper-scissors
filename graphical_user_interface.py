@@ -6,6 +6,7 @@ class GameApp(tk.Tk):
     def __init__(self):
         super().__init__()
         self.game = None
+        self.frame = None
         self.max_rounds = tk.IntVar()
         self.player_1 = tk.StringVar()
         self.player_2 = tk.StringVar()
