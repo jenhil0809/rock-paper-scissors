@@ -2,7 +2,7 @@ import tkinter as tk
 import main
 
 
-class Game(tk.Tk):
+class GameApp(tk.Tk):
     def __init__(self):
         super().__init__()
         self.game = None
@@ -18,8 +18,9 @@ class Game(tk.Tk):
         self.game_mode.set("rps")
         self.name_1.set("Player1")
         self.name_2.set("Player2")
-        self.title = tk.Label(text="Rock Paper Scissors game", font=("Arial", 12))
-        self.title.pack()
+        self.title("rock paper scissors game")
+        self.title_label = tk.Label(text="Rock Paper Scissors (Lizard Spock)", font=("Arial", 12))
+        self.title_label.pack()
         self.get_settings()
 
     def get_settings(self):
@@ -30,7 +31,7 @@ class Game(tk.Tk):
 
     def start_game(self):
         self.game = main.Game("Game", self.game_mode.get())
-        self.game.max_rounds = self.max_rounds.get() - 1
+        self.game.set_max_rounds(self.max_rounds.get() - 1)
         if self.player_1.get() == "human":
             self.game.add_human_player(self.name_1.get())
         else:
@@ -52,9 +53,9 @@ class Game(tk.Tk):
 
 
 class SetUpFrame(tk.Frame):
-    def __init__(self, master: Game):
+    def __init__(self, master: GameApp):
         super().__init__()
-        self.master: Game = master
+        self.master: GameApp = master
         self.max_rounds_title = tk.Label(self, text="Maximum rounds:")
         self.player_1_title = tk.Label(self, text="Player 1:")
         self.player_2_title = tk.Label(self, text="Player 2:")
@@ -104,9 +105,9 @@ class SetUpFrame(tk.Frame):
 
 
 class GameFrame(tk.Frame):
-    def __init__(self, master: Game):
+    def __init__(self, master: GameApp):
         super().__init__()
-        self.master: Game = master
+        self.master: GameApp = master
         self.select_choice_txt = tk.StringVar()
         self.round_num = tk.IntVar()
         self.obj1 = tk.StringVar(value="rock")
@@ -160,6 +161,7 @@ class GameFrame(tk.Frame):
         self.player_2_title.grid(row=0, column=2)
         self.score.grid(row=0, column=1)
         self.choice1.grid(row=1, column=0)
+        tk.Label(self, text="vs.").grid(row=1, column=1)
         self.choice2.grid(row=1, column=2)
         self.submit.grid(row=2, column=1)
         self.round_message.grid(row=3, column=1)
@@ -167,9 +169,9 @@ class GameFrame(tk.Frame):
 
 
 class ResultsFrame(tk.Frame):
-    def __init__(self, master: Game):
+    def __init__(self, master: GameApp):
         super().__init__()
-        self.master: Game = master
+        self.master: GameApp = master
         self.last_round = tk.Label(self, text=f"final round: {self.master.game.players[0].current_object} vs."
                                               f" {self.master.game.players[1].current_object}")
         self.player_names = tk.Label(self, text=f"{self.master.name_1.get()} vs. {self.master.name_2.get()}")
@@ -191,7 +193,7 @@ class ResultsFrame(tk.Frame):
 
 
 if __name__ == "__main__":
-    app = Game()
+    app = GameApp()
     app.geometry("450x150")
     app.resizable(False, False)
     app.mainloop()
