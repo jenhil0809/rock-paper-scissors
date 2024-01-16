@@ -148,11 +148,11 @@ class GameFrame(tk.Frame):
 
     def find_winner(self):
         if self.master.player_1.get() == "human":
-            self.master.game.players[0].current_object = self.obj1.get()
+            self.master.game.players[0].current_object = main.PlayerObject(self.obj1.get(), main.RULES[self.master.game_mode.get()])
         else:
             self.master.game.players[0].choose_object()
         if self.master.player_2.get() == "human":
-            self.master.game.players[1].current_object = self.obj2.get()
+            self.master.game.players[1].current_object = main.PlayerObject(self.obj2.get(), main.RULES[self.master.game_mode.get()])
         else:
             self.master.game.players[1].choose_object()
         self.master.game.find_winner()

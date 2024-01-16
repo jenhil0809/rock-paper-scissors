@@ -55,7 +55,7 @@ class HumanPlayer(Player):
         super().__init__(name, player_object)
 
     def choose_object(self):
-        self.current_object = inputMenu(self.player_object.allowed_objects, "choice: \n")
+        self.current_object = PlayerObject(inputMenu(self.player_object.allowed_objects, "choice: \n"), RULES["rpsls"])
 
 
 class ComputerPlayer(Player):
@@ -63,7 +63,7 @@ class ComputerPlayer(Player):
         super().__init__("Computer", player_object)
 
     def choose_object(self):
-        self.current_object = self.player_object.random_object()
+        self.current_object = PlayerObject(self.player_object.random_object(), RULES["rpsls"])
 
 
 class Game:
@@ -121,7 +121,7 @@ class Game:
 
     def report_round(self):
         for player in self.players:
-            print(f"{player.name} chose {player.current_object}")
+            print(f"{player.name} chose {player.current_object.name}")
         if self.round_result == "Draw":
             print("It was a draw")
         else:

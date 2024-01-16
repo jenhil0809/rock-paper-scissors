@@ -14,6 +14,11 @@ def my_spock():
     return main.PlayerObject("spock", main.RULES["rpsls"])
 
 
+@pytest.fixture
+def my_paper():
+    return main.PlayerObject("paper", main.RULES["rps"])
+
+
 @pytest.fixture()
 def human_player():
     player = main.HumanPlayer("Andrew", main.PlayerObject("", main.RULES["rpsls"]))
@@ -40,18 +45,18 @@ def my_game():
 
 @pytest.fixture()
 def finished_game(my_game):
-    my_game.find_winner()
     my_game.next_round()
-    my_game.players[0].current_object = "lizard"
+    my_game.players[0].current_object = main.PlayerObject("lizard", main.RULES["rpsls"])
     my_game.players[1].choose_object()
     my_game.find_winner()
     my_game.next_round()
     return my_game
 
 
-def test_player_object(my_rock, my_spock):
+def test_player_object(my_rock, my_spock, my_paper):
     assert my_rock.name == "rock"
     assert my_spock > my_rock
+    assert my_paper > my_rock
 
 
 def test_human_player(human_player):
