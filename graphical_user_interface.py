@@ -1,5 +1,5 @@
 import tkinter as tk
-import main
+import rps_backend
 
 
 class GameApp(tk.Tk):
@@ -20,7 +20,7 @@ class GameApp(tk.Tk):
         self.name_1.set("Player1")
         self.name_2.set("Player2")
         self.title("rock paper scissors game")
-        self.title_label = tk.Label(text="Rock Paper Scissors (Lizard Spock)", font=("Arial", 12))
+        self.title_label = tk.Label(text="Rock🪨 Paper📄 Scissors✂️(Lizard🦎 Spock🖖)", font=("Arial", 12))
         self.title_label.pack()
         self.get_settings()
 
@@ -31,7 +31,7 @@ class GameApp(tk.Tk):
         self.frame.pack()
 
     def start_game(self):
-        self.game = main.Game("Game", self.game_mode.get())
+        self.game = rps_backend.Game("Game", self.game_mode.get())
         self.game.set_max_rounds(self.max_rounds.get() - 1)
         if self.player_1.get() == "human":
             self.game.add_human_player(self.name_1.get())
@@ -111,13 +111,24 @@ class GameFrame(tk.Frame):
         self.master: GameApp = master
         self.select_choice_txt = tk.StringVar()
         self.round_num = tk.IntVar()
-        self.obj1 = tk.StringVar(value="rock")
-        self.obj2 = tk.StringVar(value="rock")
+        self.obj1 = tk.StringVar(value="Rock🪨")
+        self.obj2 = tk.StringVar(value="Rock🪨")
         self.round_num.set(1)
         self.last_round = tk.Label(self, text="")
         self.player_1_title = tk.Label(self, text=self.master.name_1.get())
         self.player_2_title = tk.Label(self, text=self.master.name_2.get())
         self.choices = [obj for obj in self.master.game.player_object.allowed_objects]
+        for i in range(len(self.choices)):
+            if self.choices[i] == "rock":
+                self.choices[i] = "Rock🪨"
+            if self.choices[i] == "paper":
+                self.choices[i] = "Paper📄"
+            if self.choices[i] == "scissors":
+                self.choices[i] = "Scissors✂"
+            if self.choices[i] == "lizard":
+                self.choices[i] = "Lizard🦎"
+            if self.choices[i] == "spock":
+                self.choices[i] = "Spock🖖"
         self.score = tk.Label(self, text="0:0")
         self.round_message = tk.Label(self, text=f"round {self.round_num.get()} of {self.master.max_rounds.get()}")
         self.submit = tk.Button(self, text="submit", bg="powder blue", command=self.next_round)
@@ -140,19 +151,23 @@ class GameFrame(tk.Frame):
             self.round_num.set(self.round_num.get() + 1)
             self.round_message = tk.Label(self, text=f"round {self.round_num.get()} of {self.master.max_rounds.get()}")
             self.last_round.destroy()
-            self.last_round = tk.Label(self, text=f"last round: {self.master.game.players[0].current_object} vs."
-                                                  f" {self.master.game.players[1].current_object}")
+            self.last_round = tk.Label(self, text=f"last round: {self.master.game.players[0].current_object.name} vs."
+                                                  f" {self.master.game.players[1].current_object.name}")
             self.score = tk.Label(self, text=f"{self.master.game.players[0].score}:{self.master.game.players[1].score}")
             self.master.game.next_round()
             self.place_widgets()
 
     def find_winner(self):
         if self.master.player_1.get() == "human":
-            self.master.game.players[0].current_object = main.PlayerObject(self.obj1.get(), main.RULES[self.master.game_mode.get()])
+            self.master.game.players[0].current_object = rps_backend.PlayerObject(self.obj1.get()[:-1],
+                                                                                  rps_backend.RULES[
+                                                                                      self.master.game_mode.get()])
         else:
             self.master.game.players[0].choose_object()
         if self.master.player_2.get() == "human":
-            self.master.game.players[1].current_object = main.PlayerObject(self.obj2.get(), main.RULES[self.master.game_mode.get()])
+            self.master.game.players[1].current_object = rps_backend.PlayerObject(self.obj2[:-1].get(),
+                                                                                  rps_backend.RULES[
+                                                                                      self.master.game_mode.get()])
         else:
             self.master.game.players[1].choose_object()
         self.master.game.find_winner()
@@ -173,8 +188,8 @@ class ResultsFrame(tk.Frame):
     def __init__(self, master: GameApp):
         super().__init__()
         self.master: GameApp = master
-        self.last_round = tk.Label(self, text=f"final round: {self.master.game.players[0].current_object} vs."
-                                              f" {self.master.game.players[1].current_object}")
+        self.last_round = tk.Label(self, text=f"final round: {self.master.game.players[0].current_object.name} vs."
+                                              f" {self.master.game.players[1].current_object.name}")
         self.player_names = tk.Label(self, text=f"{self.master.name_1.get()} vs. {self.master.name_2.get()}")
         self.score = tk.Label(self,
                               text=f"{self.master.game.players[0].score}:{self.master.game.players[1].score}  "

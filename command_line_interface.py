@@ -1,14 +1,14 @@
-import main
+import rps_backend
 
 
 class CLInterface:
     def __init__(self):
-        self.mode = main.inputMenu(["rps", "rpsls"], "rps or rpsls?\n")
-        self.game = main.Game("Game", self.mode)
+        self.mode = rps_backend.inputMenu(["rps", "rpsls"], "rps or rpsls?\n")
+        self.game = rps_backend.Game("Game", self.mode)
 
     def set_up(self):
         for i in range(2):
-            typ = main.inputMenu(["computer", "human"], "Computer/human?\n")
+            typ = rps_backend.inputMenu(["computer", "human"], "Computer/human?\n")
             if typ == "human":
                 name = input("Name: ")
                 self.game.add_human_player(name)
