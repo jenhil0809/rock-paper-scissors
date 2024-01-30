@@ -20,7 +20,7 @@ class GameApp(tk.Tk):
         self.name_1.set("Player1")
         self.name_2.set("Player2")
         self.title("rock paper scissors game")
-        self.title_label = tk.Label(text="Rock🪨 Paper📄 Scissors✂️(Lizard🦎 Spock🖖)", font=("Arial", 12))
+        self.title_label = tk.Label(text="Rock🪨 Paper📄 Scissors✂ (Lizard🦎 Spock🖖)", font=("Arial", 12))
         self.title_label.pack()
         self.get_settings()
 
@@ -165,7 +165,7 @@ class GameFrame(tk.Frame):
         else:
             self.master.game.players[0].choose_object()
         if self.master.player_2.get() == "human":
-            self.master.game.players[1].current_object = rps_backend.PlayerObject(self.obj2[:-1].get(),
+            self.master.game.players[1].current_object = rps_backend.PlayerObject(self.obj2.get()[:-1],
                                                                                   rps_backend.RULES[
                                                                                       self.master.game_mode.get()])
         else:
