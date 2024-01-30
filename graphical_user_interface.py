@@ -152,11 +152,12 @@ class GameFrame(tk.Frame):
             self.round_message = tk.Label(self, text=f"round {self.round_num.get()} of {self.master.max_rounds.get()}")
             if self.master.player_1.get() == "computer":
                 self.choice1.destroy()
-                self.choice1 = tk.Label(self,text = f"Computer choice\nLast round: {self.master.game.players[0].current_object.name}")
+                self.choice1 = tk.Label(self, text=f"Computer choice\nLast round: "
+                                                   f"{self.master.game.players[0].current_object.name}")
             if self.master.player_2.get() == "computer":
                 self.choice2.destroy()
-                self.choice2 = tk.Label(self,
-                                        text=f"Computer choice\nLast round: {self.master.game.players[1].current_object.name}")
+                self.choice2 = tk.Label(self, text=f"Computer choice\nLast round:"
+                                                   f" {self.master.game.players[1].current_object.name}")
             self.last_round.destroy()
             self.last_round = tk.Label(self, text=f"last round: {self.master.game.players[0].current_object.name} vs."
                                                   f" {self.master.game.players[1].current_object.name}")
